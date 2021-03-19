@@ -11,9 +11,9 @@ var button = d3.select("#filter-btn");
 // Select the form
 var form = d3.select("form");
 
-data.forEach((tableData) => {
+tableData.forEach((sighting) => {
   var row = tbody.append("tr");
-  Object.entries(tableData).forEach(([key, value]) => {
+  Object.entries(sighting).forEach(([key, value]) => {
     var cell = row.append("td");
     cell.text(value);
   });
@@ -35,5 +35,42 @@ function runFilter() {
 
   console.log(inputValue);
   console.log(tableData);
+// this is in case the user enters nothing into the form
+  if (inputValue.trim() === "") {
+    tbody.html("");
+
+    tableData.forEach((sighting) => {
+        var row = tbody.append("tr");
+        Object.entries(sighting).forEach(([key, value]) => {
+          var cell = row.append("td");
+          cell.text(value);
+        });
+      });
+  }
+
+//   else if (inputValue != "") {
+    else {
+        var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+
+        console.log(filteredData);
+
+
+
+        // clear the table
+        tbody.html("");
+
+        // fill table with filtered data
+        filteredData.forEach((sighting) => {
+
+            var row = tbody.append("tr");
+            Object.entries(sighting).forEach(([key, value]) => {
+            var cell = row.append("td");
+            cell.text(value);
+            });
+
+        });
+
+    } 
+
 
 };
