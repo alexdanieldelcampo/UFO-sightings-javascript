@@ -20,6 +20,7 @@ tableData.forEach((sighting) => {
 });
 
 button.on("click", runFilter);
+
 form.on("submit",runFilter);
 
 function runFilter() {
@@ -31,12 +32,12 @@ function runFilter() {
   var inputElement = d3.select("#datetime");
 
   // Get the value property of the input element
-  var inputValue = inputElement.property("value");
+  var inputValue = inputElement.property("value").trim();
 
   console.log(inputValue);
   console.log(tableData);
 // this is in case the user enters nothing into the form
-  if (inputValue.trim() === "") {
+  if (inputValue === "") {
     tbody.html("");
 
     tableData.forEach((sighting) => {
@@ -48,7 +49,7 @@ function runFilter() {
       });
   }
 
-//   else if (inputValue != "") {
+
     else {
         var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
 
